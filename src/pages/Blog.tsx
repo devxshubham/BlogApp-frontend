@@ -2,8 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 function Blog() {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([
     {
       id: "123",
@@ -24,7 +26,9 @@ function Blog() {
           },
         }
       );
-      console.log(res.data);
+      if( res.data == "login first"){
+        navigate('/user/signin')
+      }
       setBlogs(res.data);
     }
     getBlogs();
