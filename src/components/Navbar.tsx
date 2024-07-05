@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-medium.png";
 
 import { TfiWrite } from "react-icons/tfi";
