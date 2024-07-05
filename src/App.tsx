@@ -9,7 +9,7 @@ import Post from './pages/Post'
 
 const router = createBrowserRouter([
   {
-    path : '/blog',
+    path : '/',
     element : <Blog></Blog>
   },
   {
