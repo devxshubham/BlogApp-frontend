@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
+import Navbar from "../components/Navbar";
 
 function Blog() {
   const [blogs, setBlogs] = useState([
@@ -29,7 +30,9 @@ function Blog() {
     getBlogs();
   }, []);
   return (
-    <main className="flex flex-col gap-14 items-center justify-center mx-auto max-w-[700px]">
+    <>
+      <Navbar></Navbar>
+      <main className="flex flex-col gap-14 items-center justify-center mx-auto max-w-[700px]">
       {blogs.map((blog) => {
         return (
           <BlogCard
@@ -42,6 +45,7 @@ function Blog() {
         );
       })}
     </main>
+    </>
   );
 }
 
