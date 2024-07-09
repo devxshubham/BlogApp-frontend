@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signUpInput } from "@devxshubham/blogapp-common";
 import LabelledInput from "../components/LabelledInput";
+import { useAppDispatch } from "../utils/store/appHook";
+import { addUser } from "../utils/store/userSlice";
 
 function Signup() {
   const navigate = useNavigate()
@@ -14,15 +16,17 @@ function Signup() {
     password: "",
     name: "",
   });
+
+  const dispatch = useAppDispatch()
   async function handleSubmit(){
     try{
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`,postInputs)
-      // navigate('/blog')
-      console.log(res.data)
+      
       if(res.data.jwt_token){
-        console.log(res.data)
+        
         localStorage.setItem("jwt_token",res.data.jwt_token)
-        navigate('/blog')
+        dispatch(addUser(res.data.userDetail))
+        navigate('/')
       }
     }
     catch{
