@@ -5,6 +5,8 @@ import Signup from "./pages/Signup"
 import Signin from "./pages/Signin"
 import Blog from "./pages/Blog"
 import Post from './pages/Post'
+import { Provider } from 'react-redux'
+import { appStore } from './utils/store/appStore'
 
 
 const router = createBrowserRouter([
@@ -30,8 +32,11 @@ function App() {
 
   return (
     <>
+      <Provider store={appStore}>
+
       <RouterProvider router={router} />
         
+        </Provider>
     </>
   )
 }
