@@ -22,11 +22,12 @@ function BlogCard({id,authorId,content,title} : blogCardType) {
         getUser();
     },[authorId])
 
-    return <div className="flex flex-col gap-4" key={id}>
+    return <div className="flex flex-col my-10 gap-4" key={id}>
         <div className="flex gap-3 items-center">
             <Avatar/>
             <div className="text-[15px]  font-semibold">{user.name}</div>
             <div className="h-1 w-1  rounded-full bg-gray-500"></div>
+            <div className="font-serif opacity-60">{Math.ceil(content.length/1000)} min read</div>
         </div>
         <div className="text-[23px] font-bold">{title}</div>
         <div className="font-serif">{content.slice(0,280)+"....."}</div>

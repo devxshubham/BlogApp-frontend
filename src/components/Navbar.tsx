@@ -2,8 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-medium.png";
 
 import { TfiWrite } from "react-icons/tfi";
+import { useAppDispatch, useAppSelector } from "../utils/store/appHook";
+import axios from "axios";
+import { removeUser } from "../utils/store/userSlice";
 
-function Navbar() {
+function Navbar({ user }: { user: string | null }) {
   const location = useLocation();
 
   const navigate = useNavigate();
@@ -11,10 +14,30 @@ function Navbar() {
   const handleClick = () => {
     navigate("/post");
   };
+  const username = useAppSelector((store) => store.user.username);
+
+  async function handlePost() {
+    if (user) {
+    }
+  }
+
+  const dispatch = useAppDispatch();
+
+  function handleLogout() {
+    dispatch(removeUser());
+    localStorage.removeItem("jwt_token");
+    navigate("/user/signin");
+  }
 
   return (
     <nav className="flex px-6 items-center justify-between">
-      <img className="max-w-[200px]" src={logo} alt="" />
+      <img
+        className="max-w-[200px]"
+        onClick={() => navigate("/")}
+        src={logo}
+        alt=""
+      />
+      <div>{username}</div>
       <div className="flex gap-8 items-center">
         {location.pathname != "/post" ? (
           <div
@@ -28,9 +51,14 @@ function Navbar() {
           <></>
         )}
         {location.pathname == "/post" ? (
-          <div className="bg-green-600 px-2 cursor-pointer rounded-xl text-white">
+          <button
+            onClick={handlePost}
+            className={`bg-green-600 px-2 cursor-pointer rounded-xl text-white ${
+              user ? "" : "cursor-not-allowed"
+            } `}
+          >
             Publish
-          </div>
+          </button>
         ) : (
           <></>
         )}
@@ -48,6 +76,7 @@ function Navbar() {
             ></path>
           </svg>
         </div>
+        {user ? <button onClick={handleLogout}>Log Out</button> : <></>}
       </div>
     </nav>
   );

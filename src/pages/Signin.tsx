@@ -76,6 +76,7 @@ function Login() {
         >
           Sign In
         </button>
+        <Link to={"/"}>Skip Sign In</Link>
       </div>
       <Quote />
     </div>

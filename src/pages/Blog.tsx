@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 import BlogCard from "../components/BlogCard";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
+import useGetUser from "../utils/hooks/useGetUser";
 
 function Blog() {
+  const user = useGetUser()
+
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([
     {
@@ -26,8 +30,8 @@ function Blog() {
           },
         }
       );
-      if( res.data == "login first"){
-        navigate('/user/signin')
+      if (res.data == "login first") {
+        navigate("/user/signin");
       }
       setBlogs(res.data);
     }
@@ -35,20 +39,26 @@ function Blog() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar user={user}></Navbar>
+      <Banner>
+        <div>
+          Be part of a better internet. Get 20% off membership for a limited
+          time
+        </div>
+      </Banner>
       <main className="flex flex-col gap-14 items-center justify-center mx-auto max-w-[700px]">
-      {blogs.map((blog) => {
-        return (
-          <BlogCard
-            key={blog.id}
-            id={blog.id}
-            authorId={blog.authorId}
-            title={blog.title}
-            content={blog.content}
-          />
-        );
-      })}
-    </main>
+        {blogs.map((blog) => {
+          return (
+            <BlogCard
+              key={blog.id}
+              id={blog.id}
+              authorId={blog.authorId}
+              title={blog.title}
+              content={blog.content}
+            />
+          );
+        })}
+      </main>
     </>
   );
 }
